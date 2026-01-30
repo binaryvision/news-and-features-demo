@@ -71,15 +71,21 @@ export default function Home() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         {/* Search Bar Area */}
-        <div className="relative z-40 mb-12">
-          <SearchInput 
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onClear={() => setSearchQuery("")}
-            isExpanded={isSearching}
-          />
+        <div className="relative z-40 mb-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <h1 className="text-4xl font-display font-bold tracking-tight uppercase shrink-0">
+            News and Featured
+          </h1>
+          <div className="flex-1 max-w-2xl">
+            <SearchInput 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onClear={() => setSearchQuery("")}
+              isExpanded={isSearching}
+            />
+          </div>
+        </div>
           
-          {/* Animated Filters */}
+        {/* Animated Filters */}
           <AnimatePresence>
             {isSearching && (
               <motion.div 
@@ -105,8 +111,6 @@ export default function Home() {
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
-
         {/* Content States */}
         {isLoading ? (
           <div className="flex items-center justify-center py-20">
