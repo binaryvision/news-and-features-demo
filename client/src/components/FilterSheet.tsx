@@ -19,10 +19,12 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import type { FilterState } from "@/pages/Home";
 
-const REGIONS = ["UK", "Asia", "Africa", "Europe", "Middle East", "North America", "Oceania", "South America", "Space"];
+const EARTH_REGIONS = ["UK", "Asia", "Africa", "Europe", "Middle East", "North America", "Oceania", "South America"];
+const SPACE_REGION = ["Space"];
 
 const TOPICS_WITH_SUBTOPICS = [
   {
@@ -242,8 +244,21 @@ export function FilterSheet({ filters, onFiltersChange }: FilterSheetProps) {
                 </button>
               )}
             </div>
-            <div className="flex flex-wrap gap-2">
-              {REGIONS.map(region => (
+            <div className="flex flex-wrap gap-2 items-center">
+              {EARTH_REGIONS.map(region => (
+                <Badge
+                  key={region}
+                  variant={filters.regions.includes(region) ? "default" : "outline"}
+                  className="cursor-pointer px-4 py-2 rounded-lg text-sm font-medium h-auto"
+                  onClick={() => toggleRegion(region)}
+                >
+                  {region}
+                </Badge>
+              ))}
+              <div className="w-full py-1">
+                <Separator className="h-0.5 bg-muted-foreground/20" />
+              </div>
+              {SPACE_REGION.map(region => (
                 <Badge
                   key={region}
                   variant={filters.regions.includes(region) ? "default" : "outline"}
