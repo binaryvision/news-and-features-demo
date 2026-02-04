@@ -268,8 +268,8 @@ export default function Home() {
         ) : !isSearching ? (
           <div key="landing" ref={contentRef}>
             <NewsAndFeaturedSection featured={featured} gridItems={newsGridItems} />
-            <ContentGrid title="OPERATIONS" items={operations} onViewAll={() => {}} />
-            <ContentGrid title="EQUIPMENT & TECHNOLOGY" items={equipment} onViewAll={() => {}} />
+            <ContentGrid title="OPERATIONS" items={operations} onViewAll={() => {}} scrollHorizontalOnMobile />
+            <ContentGrid title="EQUIPMENT & TECHNOLOGY" items={equipment} onViewAll={() => {}} scrollHorizontalOnMobile />
             <ForYouSection items={forYouItems} />
           </div>
         ) : (

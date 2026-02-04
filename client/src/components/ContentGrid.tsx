@@ -7,10 +7,15 @@ interface ContentGridProps {
   items: Content[];
   onViewAll?: () => void;
   layout?: "grid" | "list";
+  /** On mobile, show items in a horizontal scroll row instead of a vertical grid. */
+  scrollHorizontalOnMobile?: boolean;
 }
 
-export function ContentGrid({ title, items, onViewAll, layout = "grid" }: ContentGridProps) {
+export function ContentGrid({ title, items, onViewAll, layout = "grid", scrollHorizontalOnMobile = false }: ContentGridProps) {
   if (items.length === 0) return null;
+
+  const isGrid = layout === "grid";
+  const useMobileScroll = isGrid && scrollHorizontalOnMobile;
 
   return (
     <section className="py-8">
@@ -26,15 +31,30 @@ export function ContentGrid({ title, items, onViewAll, layout = "grid" }: Conten
         )}
       </div>
 
-      <div className={cn(
-        "grid gap-6",
-        layout === "grid"
-          ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
-          : "grid-cols-1"
-      )} data-scroll-reveal>
-        {items.map((item) => (
-          <ContentCard key={item.id} item={item} layout={layout} />
-        ))}
+      <div
+        className={cn(
+          "gap-6",
+          useMobileScroll
+            ? "flex overflow-x-auto pb-2 -mx-4 px-4 md:mx-0 md:px-0 md:overflow-visible md:grid md:grid-cols-2 lg:grid-cols-4"
+            : cn(
+                "grid",
+                isGrid ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" : "grid-cols-1"
+              )
+        )}
+        data-scroll-reveal
+      >
+        {items.map((item) =>
+          useMobileScroll ? (
+            <div
+              key={item.id}
+              className="shrink-0 w-[min(85vw,320px)] md:w-auto md:min-w-0"
+            >
+              <ContentCard item={item} layout={layout} />
+            </div>
+          ) : (
+            <ContentCard key={item.id} item={item} layout={layout} />
+          )
+        )}
       </div>
     </section>
   );
