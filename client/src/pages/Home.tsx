@@ -46,6 +46,16 @@ function useHideRegions(): boolean {
   return new URLSearchParams(window.location.search).has("disableRegions");
 }
 
+/** Build path + search string, preserving existing params and applying updates. */
+function buildLocationWithParams(updates: { set?: Record<string, string>; remove?: string[] }): string {
+  if (typeof window === "undefined") return "/";
+  const params = new URLSearchParams(window.location.search);
+  updates.remove?.forEach(key => params.delete(key));
+  Object.entries(updates.set ?? {}).forEach(([key, value]) => params.set(key, value));
+  const search = params.toString();
+  return search ? `/?${search}` : "/";
+}
+
 export default function Home() {
   const [, setLocation] = useLocation();
   const hideRegions = useHideRegions();
@@ -73,7 +83,7 @@ export default function Home() {
 
   function handleMoreByParentTopic(parentTopic: string) {
     setFilters(prev => ({ ...prev, parentTopics: [parentTopic] }));
-    setLocation(`/?parentTopic=${encodeURIComponent(parentTopic)}`);
+    setLocation(buildLocationWithParams({ set: { parentTopic } }));
   }
 
   function hasActiveFilters(): boolean {
@@ -190,7 +200,7 @@ export default function Home() {
       dateFrom: undefined,
       dateTo: undefined,
     });
-    setLocation("/");
+    setLocation(buildLocationWithParams({ remove: ["parentTopic"] }));
   };
 
   const featured = content.find(c => c.isFeatured) || content[0];
