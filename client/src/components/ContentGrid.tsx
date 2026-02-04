@@ -13,8 +13,8 @@ export function ContentGrid({ title, items, onViewAll, layout = "grid" }: Conten
   if (items.length === 0) return null;
 
   return (
-    <section className="py-8" data-scroll-reveal>
-      <div className="flex items-center justify-between mb-6">
+    <section className="py-8">
+      <div className="flex items-center justify-between mb-6" data-scroll-reveal>
         <h2 className="text-2xl font-bold tracking-tight text-foreground/90 uppercase font-display">{title}</h2>
         {onViewAll && (
           <button
@@ -31,24 +31,23 @@ export function ContentGrid({ title, items, onViewAll, layout = "grid" }: Conten
         layout === "grid"
           ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
           : "grid-cols-1"
-      )}>
-        {items.map((item, index) => (
-          <ContentCard key={item.id} item={item} index={index} layout={layout} />
+      )} data-scroll-reveal>
+        {items.map((item) => (
+          <ContentCard key={item.id} item={item} layout={layout} />
         ))}
       </div>
     </section>
   );
 }
 
-function ContentCard({ item, index, layout }: { item: Content; index: number; layout: "grid" | "list" }) {
+function ContentCard({ item, layout }: { item: Content; layout: "grid" | "list" }) {
   return (
     <div
       className={cn(
         "group cursor-pointer relative overflow-hidden rounded-xl bg-card border border-border/50",
-        "hover:shadow-xl hover:border-border transition-all duration-300",
+        "hover:shadow-xl hover:border-border",
         layout === "list" ? "flex flex-col md:flex-row gap-6 p-4" : "flex flex-col"
       )}
-      data-scroll-reveal
     >
       <div className={cn(
         "relative overflow-hidden bg-muted",

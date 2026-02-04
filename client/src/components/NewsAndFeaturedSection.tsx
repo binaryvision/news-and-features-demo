@@ -66,12 +66,11 @@ export function NewsAndFeaturedSection({ featured, gridItems }: NewsAndFeaturedS
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8" data-scroll-reveal>
         <div className="space-y-0">
           {card1 && (
             <article
-              className="group cursor-pointer rounded-xl overflow-hidden bg-card border border-border/50 hover:shadow-xl hover:border-border transition-all duration-300 flex flex-col"
-              data-scroll-reveal
+              className="group cursor-pointer rounded-xl overflow-hidden bg-card border border-border/50 hover:shadow-xl hover:border-border flex flex-col"
             >
               <div className="relative aspect-[4/3] bg-muted overflow-hidden">
                 {card1.imageUrl ? (
@@ -121,8 +120,7 @@ export function NewsAndFeaturedSection({ featured, gridItems }: NewsAndFeaturedS
 function CompactCard({ item }: { item: Content }) {
   return (
     <article
-      className="group cursor-pointer rounded-xl overflow-hidden bg-card border border-border/50 hover:shadow-xl hover:border-border transition-all duration-300 flex flex-col"
-      data-scroll-reveal
+      className="group cursor-pointer rounded-xl overflow-hidden bg-card border border-border/50 hover:shadow-xl hover:border-border flex flex-col"
     >
       <div className="relative aspect-video bg-muted overflow-hidden">
         {item.imageUrl ? (
@@ -159,7 +157,6 @@ function TextOnlyRow({ item }: { item: Content }) {
   return (
     <article
       className="group cursor-pointer py-4 border-b border-border/50 last:border-0 hover:bg-muted/30 -mx-2 px-2 rounded-lg transition-colors"
-      data-scroll-reveal
     >
       {item.labelTag && (
         <span className="inline-block text-xs font-bold text-primary uppercase tracking-wider mb-2">

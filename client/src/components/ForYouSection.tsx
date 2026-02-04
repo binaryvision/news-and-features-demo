@@ -42,6 +42,7 @@ export function ForYouSection({ items }: ForYouSectionProps) {
           breakpointCols={breakpointColumns}
           className="flex w-auto -ml-4"
           columnClassName="pl-4 bg-clip-padding"
+          data-scroll-reveal
         >
           {displayItems.map((item, index) => (
             <div key={item.id} className="mb-4">

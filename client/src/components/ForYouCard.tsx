@@ -17,7 +17,6 @@ export function ForYouCard({ item, index, imageAspectClass }: ForYouCardProps) {
         "group cursor-pointer rounded-xl overflow-hidden bg-card border border-border/50",
         "hover:shadow-xl hover:border-border transition-all duration-300 flex flex-col"
       )}
-      data-scroll-reveal
     >
       <div className={cn("relative w-full bg-muted overflow-hidden shrink-0", imageAspectClass ?? "aspect-[4/3]")}>
         {item.imageUrl ? (

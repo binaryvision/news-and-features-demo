@@ -22,13 +22,14 @@ export function useScrollReveal(scopeRef: RefObject<HTMLElement | null>, enabled
 
       els.forEach((el) => {
         gsap.fromTo(
-          el,
+          el.children,
           { opacity: 0, y: 20 },
           {
             opacity: 1,
             y: 0,
             duration: 0.5,
             ease: "power2.out",
+            stagger: 0.08,
             scrollTrigger: {
               trigger: el,
               start: "top 88%",
