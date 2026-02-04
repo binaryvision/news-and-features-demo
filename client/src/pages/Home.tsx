@@ -6,6 +6,7 @@ import type { Content } from "@shared/schema";
 import { SearchInput } from "@/components/SearchInput";
 import { FilterSheet } from "@/components/FilterSheet";
 import { ContentGrid } from "@/components/ContentGrid";
+import { MultimediaCarousel } from "@/components/MultimediaCarousel";
 import { NewsAndFeaturedSection } from "@/components/NewsAndFeaturedSection";
 import { ForYouSection } from "@/components/ForYouSection";
 import { Loader2, X } from "lucide-react";
@@ -213,6 +214,8 @@ export default function Home() {
   const contentRef = useRef<HTMLDivElement>(null);
   useScrollReveal(contentRef, !isLoading && !isSearching);
   const allMatches = sortedContent.slice(5);
+  const allMatchesBeforeCarousel = allMatches.slice(0, 6);
+  const allMatchesAfterCarousel = allMatches.slice(6);
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground pb-20">
@@ -473,9 +476,16 @@ export default function Home() {
 
             <div>
               <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-4">All Matches</h3>
-              <div className="bg-card rounded-xl border border-border shadow-sm divide-y divide-border">
-                {allMatches.length > 0 ? (
-                  allMatches.map(item => (
+              {allMatches.length === 0 && (
+                <div className="bg-card rounded-xl border border-border shadow-sm">
+                  <div className="p-12 text-center text-muted-foreground">
+                    <p>No other matches found.</p>
+                  </div>
+                </div>
+              )}
+              {allMatchesBeforeCarousel.length > 0 && (
+                <div className="bg-card rounded-xl border border-border shadow-sm divide-y divide-border">
+                  {allMatchesBeforeCarousel.map(item => (
                     <a
                       key={item.id}
                       href={item.url}
@@ -504,13 +514,44 @@ export default function Home() {
                         )}
                       </div>
                     </a>
-                  ))
-                ) : (
-                  <div className="p-12 text-center text-muted-foreground">
-                    <p>No other matches found.</p>
-                  </div>
-                )}
-              </div>
+                  ))}
+                </div>
+              )}
+              <MultimediaCarousel />
+              {allMatchesAfterCarousel.length > 0 && (
+                <div className="bg-card rounded-xl border border-border shadow-sm divide-y divide-border mt-10">
+                  {allMatchesAfterCarousel.map(item => (
+                    <a
+                      key={item.id}
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-6 hover:bg-muted/30 transition-colors flex flex-col md:flex-row gap-6 cursor-pointer group block"
+                    >
+                      <div className="w-full md:w-48 aspect-video bg-muted rounded-lg shrink-0 overflow-hidden">
+                        {item.imageUrl && (
+                          <img src={item.imageUrl} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="" />
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="px-2 py-0.5 rounded text-xs font-medium bg-secondary text-secondary-foreground uppercase">{item.type}</span>
+                          <span className="text-xs text-muted-foreground">{item.date}</span>
+                        </div>
+                        <h4 className="font-bold text-xl mb-2 group-hover:text-primary transition-colors">{item.title}</h4>
+                        <p className="text-muted-foreground mb-4 line-clamp-2">{item.description}</p>
+                        {item.tags && (
+                          <div className="flex flex-wrap gap-2">
+                            {item.tags.map(tag => (
+                              <span key={tag} className="text-xs text-muted-foreground bg-secondary/50 px-2 py-1 rounded">#{tag}</span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )}
