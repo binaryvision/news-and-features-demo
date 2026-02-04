@@ -1,7 +1,6 @@
 import { Content } from "@shared/schema";
 import { ArrowRight, Play, FileText, Radio } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 
 interface ContentGridProps {
   title: string;
@@ -14,7 +13,7 @@ export function ContentGrid({ title, items, onViewAll, layout = "grid" }: Conten
   if (items.length === 0) return null;
 
   return (
-    <section className="py-8">
+    <section className="py-8" data-scroll-reveal>
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold tracking-tight text-foreground/90 uppercase font-display">{title}</h2>
         {onViewAll && (
@@ -29,8 +28,8 @@ export function ContentGrid({ title, items, onViewAll, layout = "grid" }: Conten
 
       <div className={cn(
         "grid gap-6",
-        layout === "grid" 
-          ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" 
+        layout === "grid"
+          ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
           : "grid-cols-1"
       )}>
         {items.map((item, index) => (
@@ -42,28 +41,22 @@ export function ContentGrid({ title, items, onViewAll, layout = "grid" }: Conten
 }
 
 function ContentCard({ item, index, layout }: { item: Content; index: number; layout: "grid" | "list" }) {
-  // Animation delay based on index
-  const delay = index * 0.05;
-
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay, ease: "easeOut" }}
+    <div
       className={cn(
         "group cursor-pointer relative overflow-hidden rounded-xl bg-card border border-border/50",
         "hover:shadow-xl hover:border-border transition-all duration-300",
         layout === "list" ? "flex flex-col md:flex-row gap-6 p-4" : "flex flex-col"
       )}
+      data-scroll-reveal
     >
-      {/* Image Thumbnail */}
       <div className={cn(
         "relative overflow-hidden bg-muted",
         layout === "list" ? "w-full md:w-64 aspect-video rounded-lg shrink-0" : "w-full aspect-[4/3]"
       )}>
         {item.imageUrl ? (
-          <img 
-            src={item.imageUrl} 
+          <img
+            src={item.imageUrl}
             alt={item.title}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
@@ -72,15 +65,12 @@ function ContentCard({ item, index, layout }: { item: Content; index: number; la
             {getTypeIcon(item.type, "w-12 h-12 text-muted-foreground/30")}
           </div>
         )}
-        
-        {/* Type Badge */}
         <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-semibold px-2 py-1 rounded-md flex items-center gap-1.5">
           {getTypeIcon(item.type, "w-3 h-3")}
           <span className="uppercase">{item.type}</span>
         </div>
       </div>
 
-      {/* Content */}
       <div className={cn(
         "flex flex-col",
         layout === "list" ? "justify-center flex-1" : "p-5"
@@ -90,18 +80,15 @@ function ContentCard({ item, index, layout }: { item: Content; index: number; la
           <span>•</span>
           <span>{item.date}</span>
         </div>
-        
         <h3 className={cn(
           "font-display font-bold text-foreground leading-tight group-hover:text-primary transition-colors",
           layout === "list" ? "text-xl mb-2" : "text-lg mb-2"
         )}>
           {item.title}
         </h3>
-        
         <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
           {item.description}
         </p>
-
         {layout === "list" && item.tags && (
           <div className="mt-4 flex flex-wrap gap-2">
             {item.tags.map(tag => (
@@ -112,7 +99,7 @@ function ContentCard({ item, index, layout }: { item: Content; index: number; la
           </div>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }
 

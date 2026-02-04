@@ -1,11 +1,9 @@
 import type { Content } from "@shared/schema";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 
 interface ForYouCardProps {
   item: Content;
   index: number;
-  /** Optional aspect ratio class for the image to vary card heights */
   imageAspectClass?: string;
 }
 
@@ -14,16 +12,13 @@ export function ForYouCard({ item, index, imageAspectClass }: ForYouCardProps) {
   const isThemed = Boolean(item.themeTag) && !item.handle;
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.05 }}
+    <article
       className={cn(
         "group cursor-pointer rounded-xl overflow-hidden bg-card border border-border/50",
         "hover:shadow-xl hover:border-border transition-all duration-300 flex flex-col"
       )}
+      data-scroll-reveal
     >
-      {/* Variable aspect ratio so masonry has varied heights */}
       <div className={cn("relative w-full bg-muted overflow-hidden shrink-0", imageAspectClass ?? "aspect-[4/3]")}>
         {item.imageUrl ? (
           <img
@@ -46,7 +41,6 @@ export function ForYouCard({ item, index, imageAspectClass }: ForYouCardProps) {
         )}
       </div>
 
-      {/* Content by variant */}
       <div className="p-4 flex flex-col flex-shrink-0">
         {isSocial ? (
           <>
@@ -81,6 +75,6 @@ export function ForYouCard({ item, index, imageAspectClass }: ForYouCardProps) {
           </>
         )}
       </div>
-    </motion.article>
+    </article>
   );
 }

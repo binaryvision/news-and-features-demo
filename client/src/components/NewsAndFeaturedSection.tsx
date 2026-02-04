@@ -1,7 +1,6 @@
 import type { Content } from "@shared/schema";
 import { Play, FileText, Radio } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 
 function getTypeIcon(type: string, className?: string) {
   switch (type.toLowerCase()) {
@@ -25,8 +24,7 @@ export function NewsAndFeaturedSection({ featured, gridItems }: NewsAndFeaturedS
   const [text1, text2, text3] = textOnly;
 
   return (
-    <div className="mb-16">
-      {/* Hero row: left media, right text */}
+    <div className="mb-16" data-scroll-reveal>
       {featured && (
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-0 rounded-3xl overflow-hidden shadow-2xl shadow-black/10 mb-12 bg-card border border-border/50">
           <div className="lg:col-span-3 relative aspect-[16/10] lg:aspect-auto lg:min-h-[320px] bg-muted group cursor-pointer">
@@ -68,16 +66,12 @@ export function NewsAndFeaturedSection({ featured, gridItems }: NewsAndFeaturedS
         </div>
       )}
 
-      {/* 3-column grid: 1 card, 2 stacked compact, 3 text-only */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Column 1: one card with image, label tag bottom-left, title, description */}
         <div className="space-y-0">
           {card1 && (
-            <motion.article
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
+            <article
               className="group cursor-pointer rounded-xl overflow-hidden bg-card border border-border/50 hover:shadow-xl hover:border-border transition-all duration-300 flex flex-col"
+              data-scroll-reveal
             >
               <div className="relative aspect-[4/3] bg-muted overflow-hidden">
                 {card1.imageUrl ? (
@@ -105,21 +99,15 @@ export function NewsAndFeaturedSection({ featured, gridItems }: NewsAndFeaturedS
                   {card1.description}
                 </p>
               </div>
-            </motion.article>
+            </article>
           )}
         </div>
 
-        {/* Column 2: two stacked compact cards - media, type icon, label tag, title only */}
         <div className="space-y-6">
-          {compact1 && (
-            <CompactCard item={compact1} />
-          )}
-          {compact2 && (
-            <CompactCard item={compact2} />
-          )}
+          {compact1 && <CompactCard item={compact1} />}
+          {compact2 && <CompactCard item={compact2} />}
         </div>
 
-        {/* Column 3: three text-only list items */}
         <div className="space-y-6">
           {text1 && <TextOnlyRow item={text1} />}
           {text2 && <TextOnlyRow item={text2} />}
@@ -132,11 +120,9 @@ export function NewsAndFeaturedSection({ featured, gridItems }: NewsAndFeaturedS
 
 function CompactCard({ item }: { item: Content }) {
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+    <article
       className="group cursor-pointer rounded-xl overflow-hidden bg-card border border-border/50 hover:shadow-xl hover:border-border transition-all duration-300 flex flex-col"
+      data-scroll-reveal
     >
       <div className="relative aspect-video bg-muted overflow-hidden">
         {item.imageUrl ? (
@@ -165,17 +151,15 @@ function CompactCard({ item }: { item: Content }) {
           {item.title}
         </h3>
       </div>
-    </motion.article>
+    </article>
   );
 }
 
 function TextOnlyRow({ item }: { item: Content }) {
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+    <article
       className="group cursor-pointer py-4 border-b border-border/50 last:border-0 hover:bg-muted/30 -mx-2 px-2 rounded-lg transition-colors"
+      data-scroll-reveal
     >
       {item.labelTag && (
         <span className="inline-block text-xs font-bold text-primary uppercase tracking-wider mb-2">
@@ -188,6 +172,6 @@ function TextOnlyRow({ item }: { item: Content }) {
       <p className="text-sm text-muted-foreground line-clamp-2">
         {item.description}
       </p>
-    </motion.article>
+    </article>
   );
 }
