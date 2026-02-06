@@ -31,7 +31,7 @@ const DEFAULT_FILTERS: FilterState = {
   regions: [],
   subtopics: [],
   parentTopics: [],
-  sortBy: "latest",
+  sortBy: "bestMatch",
   filterByDate: false,
 };
 
@@ -200,7 +200,7 @@ export default function Home() {
       regions: [],
       subtopics: [],
       parentTopics: [],
-      sortBy: "latest",
+      sortBy: "bestMatch",
       filterByDate: false,
       dateFrom: undefined,
       dateTo: undefined,
