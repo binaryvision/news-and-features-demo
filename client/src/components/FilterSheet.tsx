@@ -61,7 +61,7 @@ interface FilterSheetProps {
 }
 
 export function FilterSheet({ filters, onFiltersChange, hideRegions }: FilterSheetProps) {
-  const [expandedTopics, setExpandedTopics] = useState<string[]>(["Operations", "People", "Equipment & Technology", "Heritage"]);
+  const [expandedTopics, setExpandedTopics] = useState<string[]>([]);
   
   const toggleTopic = (topicName: string) => {
     setExpandedTopics(prev => 
