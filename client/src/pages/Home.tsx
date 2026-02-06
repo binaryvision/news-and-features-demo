@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { format } from "date-fns";
 import { useLocation } from "wouter";
 import { useContent } from "@/hooks/use-content";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
@@ -206,6 +207,15 @@ export default function Home() {
     setLocation(buildLocationWithParams({ remove: ["parentTopic"] }));
   };
 
+  const clearDateFilter = () => {
+    setFilters(prev => ({
+      ...prev,
+      filterByDate: false,
+      dateFrom: undefined,
+      dateTo: undefined,
+    }));
+  };
+
   const featured = content.find(c => c.isFeatured) || content[0];
   const newsGridItems = content.filter(c => c.category === "news" && !c.isFeatured).slice(0, 6);
   const operations = content.filter(c => c.category === "operations").slice(0, 4);
@@ -256,6 +266,27 @@ export default function Home() {
         {hasActiveFilters() && (
           <div className="mb-8 flex flex-wrap items-center gap-2 overflow-hidden">
             <div className="flex flex-wrap gap-2 items-center">
+              {filters.filterByDate && (filters.dateFrom || filters.dateTo) && (
+                <Badge
+                  variant="secondary"
+                  className="px-3 py-1.5 gap-2 rounded-lg bg-muted text-foreground border-none hover:bg-muted/80 cursor-default"
+                >
+                  <span>
+                    Date:{" "}
+                    {filters.dateFrom && filters.dateTo
+                      ? `${format(new Date(filters.dateFrom), "d MMM yyyy")} – ${format(new Date(filters.dateTo), "d MMM yyyy")}`
+                      : filters.dateFrom
+                        ? `from ${format(new Date(filters.dateFrom), "d MMM yyyy")}`
+                        : `until ${format(new Date(filters.dateTo!), "d MMM yyyy")}`}
+                  </span>
+                  <button
+                    onClick={clearDateFilter}
+                    className="ml-1 hover:bg-muted-foreground/20 rounded-full p-0.5 transition-colors"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                </Badge>
+              )}
               {!hideRegions &&
                 filters.regions.map(region => (
                   <Badge

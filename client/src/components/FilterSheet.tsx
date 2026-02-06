@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { format } from "date-fns";
+import { format, startOfDay, startOfWeek, startOfMonth, subMonths, endOfDay } from "date-fns";
 import {
   Sheet,
   SheetContent,
@@ -51,6 +51,22 @@ function subtopicsOf(parentName: string): string[] {
 
 function parentOf(subtopic: string): string | undefined {
   return TOPICS_WITH_SUBTOPICS.find(t => t.subtopics.includes(subtopic))?.name;
+}
+
+const QUICK_DATE_OPTIONS = [
+  { id: "today", label: "Today", getRange: () => { const d = new Date(); return { from: format(startOfDay(d), "yyyy-MM-dd"), to: format(endOfDay(d), "yyyy-MM-dd") }; } },
+  { id: "this-week", label: "This week", getRange: () => { const now = new Date(); const weekStart = startOfWeek(now, { weekStartsOn: 1 }); return { from: format(weekStart, "yyyy-MM-dd"), to: format(now, "yyyy-MM-dd") }; } },
+  { id: "this-month", label: "This month", getRange: () => { const now = new Date(); const monthStart = startOfMonth(now); return { from: format(monthStart, "yyyy-MM-dd"), to: format(now, "yyyy-MM-dd") }; } },
+  { id: "past-3-months", label: "Past 3 months", getRange: () => { const now = new Date(); const from = subMonths(now, 3); return { from: format(from, "yyyy-MM-dd"), to: format(now, "yyyy-MM-dd") }; } },
+] as const;
+
+function getActiveQuickDateId(dateFrom: string | undefined, dateTo: string | undefined): string | null {
+  if (!dateFrom || !dateTo) return null;
+  const match = QUICK_DATE_OPTIONS.find(opt => {
+    const { from, to } = opt.getRange();
+    return from === dateFrom && to === dateTo;
+  });
+  return match?.id ?? null;
 }
 
 interface FilterSheetProps {
@@ -168,7 +184,30 @@ export function FilterSheet({ filters, onFiltersChange, hideRegions }: FilterShe
               />
             </div>
             {filters.filterByDate && (
-              <div className="grid grid-cols-2 gap-4">
+              <>
+                <div className="flex flex-wrap gap-2">
+                  {QUICK_DATE_OPTIONS.map(({ id, label, getRange }) => {
+                    const isActive = getActiveQuickDateId(filters.dateFrom, filters.dateTo) === id;
+                    return (
+                      <Button
+                        key={id}
+                        variant={isActive ? "default" : "outline"}
+                        size="sm"
+                        className={cn(
+                          "rounded-lg font-medium h-9",
+                          isActive && "ring-2 ring-primary ring-offset-2 ring-offset-background"
+                        )}
+                        onClick={() => {
+                          const { from, to } = getRange();
+                          onFiltersChange({ ...filters, dateFrom: from, dateTo: to });
+                        }}
+                      >
+                        {label}
+                      </Button>
+                    );
+                  })}
+                </div>
+                <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>From:</Label>
                   <Popover>
@@ -230,6 +269,7 @@ export function FilterSheet({ filters, onFiltersChange, hideRegions }: FilterShe
                   </Popover>
                 </div>
               </div>
+                </>
             )}
           </section>
 
