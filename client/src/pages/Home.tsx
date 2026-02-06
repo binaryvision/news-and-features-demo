@@ -9,6 +9,7 @@ import RafLogo from "@/components/RafLogo";
 import { ContentGrid } from "@/components/ContentGrid";
 import { MultimediaCarousel } from "@/components/MultimediaCarousel";
 import { NewsAndFeaturedSection } from "@/components/NewsAndFeaturedSection";
+import { SixtySecondsAndPodcastSection } from "@/components/SixtySecondsAndPodcastSection";
 import { ForYouSection } from "@/components/ForYouSection";
 import { Loader2, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -350,6 +351,7 @@ export default function Home() {
         ) : !isSearching ? (
           <div key="landing" ref={contentRef}>
             <NewsAndFeaturedSection featured={featured} gridItems={newsGridItems} />
+            <SixtySecondsAndPodcastSection />
             <ContentGrid title="OPERATIONS" items={operations} onViewAll={() => handleMoreByParentTopic("Operations")} scrollHorizontalOnMobile />
             <ContentGrid title="EQUIPMENT & TECHNOLOGY" items={equipment} onViewAll={() => handleMoreByParentTopic("Equipment & Technology")} scrollHorizontalOnMobile />
             <ForYouSection items={forYouItems} />
