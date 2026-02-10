@@ -28,8 +28,6 @@ export function SixtySecondsAndPodcastSection() {
             </h3>
             <a
               href={SIXTY_SECONDS_ARTICLE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
               className="text-sm font-semibold text-primary hover:text-primary/80 flex items-center gap-1.5 mt-auto transition-colors"
             >
               Read article <ArrowRight className="w-4 h-4" />
@@ -40,8 +38,6 @@ export function SixtySecondsAndPodcastSection() {
         {/* Inside Air – podcast */}
         <a
           href={INSIDE_AIR_URL}
-          target="_blank"
-          rel="noopener noreferrer"
           className="rounded-xl border border-border/50 bg-card overflow-hidden shadow-sm flex flex-col md:flex-row group hover:shadow-xl hover:border-border transition-shadow"
         >
           <div className="md:w-2/5 min-w-[40%] flex items-center justify-center bg-muted/50 p-8">

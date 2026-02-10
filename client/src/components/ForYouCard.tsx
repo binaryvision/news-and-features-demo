@@ -14,8 +14,6 @@ export function ForYouCard({ item, index, imageAspectClass }: ForYouCardProps) {
   return (
     <a
       href={item.url}
-      target="_blank"
-      rel="noopener noreferrer"
       className={cn(
         "group cursor-pointer rounded-xl overflow-hidden bg-card border border-border/50",
         "hover:shadow-xl hover:border-border transition-all duration-300 flex flex-col"

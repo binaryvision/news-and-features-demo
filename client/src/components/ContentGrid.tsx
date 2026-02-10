@@ -120,7 +120,7 @@ function ContentCard({ item, layout }: { item: Content; layout: "grid" | "list" 
     </>
   );
   return (
-    <a href={item.url} target="_blank" rel="noopener noreferrer" className={className}>
+    <a href={item.url} className={className}>
       {inner}
     </a>
   );

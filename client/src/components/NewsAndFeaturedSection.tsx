@@ -29,8 +29,6 @@ export function NewsAndFeaturedSection({ featured, gridItems }: NewsAndFeaturedS
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-0 rounded-3xl overflow-hidden shadow-2xl shadow-black/10 mb-12 bg-card border border-border/50">
           <a
             href={featured.url}
-            target="_blank"
-            rel="noopener noreferrer"
             className="lg:col-span-3 relative aspect-[16/10] lg:aspect-auto lg:min-h-[320px] bg-muted group cursor-pointer block"
           >
             {featured.imageUrl ? (
@@ -76,8 +74,6 @@ export function NewsAndFeaturedSection({ featured, gridItems }: NewsAndFeaturedS
           {card1 && (
             <a
               href={card1.url}
-              target="_blank"
-              rel="noopener noreferrer"
               className="group cursor-pointer rounded-xl overflow-hidden bg-card border border-border/50 hover:shadow-xl hover:border-border flex flex-col"
             >
               <div className="relative aspect-[4/3] bg-muted overflow-hidden">
@@ -129,8 +125,6 @@ function CompactCard({ item }: { item: Content }) {
   return (
     <a
       href={item.url}
-      target="_blank"
-      rel="noopener noreferrer"
       className="group cursor-pointer rounded-xl overflow-hidden bg-card border border-border/50 hover:shadow-xl hover:border-border flex flex-col"
     >
       <div className="relative aspect-video bg-muted overflow-hidden">
@@ -168,8 +162,6 @@ function TextOnlyRow({ item }: { item: Content }) {
   return (
     <a
       href={item.url}
-      target="_blank"
-      rel="noopener noreferrer"
       className="group cursor-pointer py-4 border-b border-border/50 last:border-0 hover:bg-muted/30 -mx-2 px-2 rounded-lg transition-colors block"
     >
       {item.labelTag && (

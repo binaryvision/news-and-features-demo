@@ -386,8 +386,6 @@ export default function Home() {
                   {topMatches[0] && (
                     <a
                       href={topMatches[0].url}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className="md:row-span-7 min-h-[320px] relative flex flex-col rounded-xl border border-border/50 bg-card overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all cursor-pointer group"
                     >
                       <div className="absolute inset-0 bg-muted">
@@ -407,8 +405,6 @@ export default function Home() {
                   {topMatches[1] && (
                     <a
                       href={topMatches[1].url}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className="flex flex-row rounded-xl border md:row-span-5 border-border/50 bg-card overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all cursor-pointer group min-h-0"
                     >
                       <div className="w-2/5 min-w-[40%] shrink-0 aspect-video bg-muted overflow-hidden">
@@ -433,8 +429,6 @@ export default function Home() {
                   {topMatches[2] && (
                     <a
                       href={topMatches[2].url}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className="flex flex-row rounded-xl border md:row-span-4 border-border/50 bg-card overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all cursor-pointer group min-h-0"
                     >
                       <div className="w-2/5 min-w-[40%] shrink-0 aspect-video bg-muted overflow-hidden">
@@ -458,8 +452,6 @@ export default function Home() {
                   {topMatches[3] && (
                     <a
                       href={topMatches[3].url}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className="flex flex-row rounded-xl border md:row-span-4 border-border/50 bg-card overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all cursor-pointer group min-h-0"
                     >
                       <div className="w-2/5 min-w-[40%] shrink-0 aspect-video bg-muted overflow-hidden">
@@ -483,8 +475,6 @@ export default function Home() {
                   {topMatches[4] && (
                     <a
                       href={topMatches[4].url}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className="flex flex-row rounded-xl md:row-span-4 border border-border/50 bg-card overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all cursor-pointer group min-h-0"
                     >
                       <div className="w-2/5 min-w-[40%] shrink-0 aspect-video bg-muted overflow-hidden">
@@ -524,8 +514,6 @@ export default function Home() {
                     <a
                       key={item.id}
                       href={item.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className="p-6 hover:bg-muted/30 transition-colors flex flex-col md:flex-row gap-6 cursor-pointer group block"
                     >
                       <div className="w-full md:w-48 aspect-video bg-muted rounded-lg shrink-0 overflow-hidden">
@@ -559,8 +547,6 @@ export default function Home() {
                     <a
                       key={item.id}
                       href={item.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className="p-6 hover:bg-muted/30 transition-colors flex flex-col md:flex-row gap-6 cursor-pointer group block"
                     >
                       <div className="w-full md:w-48 aspect-video bg-muted rounded-lg shrink-0 overflow-hidden">
